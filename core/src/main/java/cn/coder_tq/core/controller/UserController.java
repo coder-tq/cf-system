@@ -7,11 +7,13 @@ import cn.coder_tq.core.service.CfInfoService;
 import cn.coder_tq.core.service.CfUserMergeService;
 import cn.coder_tq.core.service.UserInfoService;
 import cn.coder_tq.core.utils.Result;
+import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 /**
@@ -29,7 +31,28 @@ public class UserController {
     @Autowired
     CfInfoService cfInfoService;
 
+
+    public Result sendVerificationCode(UserInfo userInfo, HttpServletRequest request){
+        //TODO 判断短时间内是否重复发送验证码，计划使用redis实现。
+        try {
+            userInfoService.sendVerificationCode(userInfo,request);
+        } catch (Exception e) {
+            return Result.fail(new HashMap<String,String>(1).put("msg","验证码发送失败，请联系管理员处理"));
+        }
+        return Result.ok();
+    }
+
+    public Result verifyUserInfo(UserInfo userInfo, String verifyCode, HttpServletRequest request){
+        if (userInfoService.verifyUserInfo(userInfo,verifyCode,request)) {
+            addUser(userInfo);
+            return Result.ok();
+        }
+        //TODO 返回信息。
+        return Result.fail();
+    }
+
     private Result addUser(UserInfo user){
+        //TODO 添加用户
         return Result.ok();
     }
 
@@ -38,7 +61,7 @@ public class UserController {
         if (!userInfoService.checkUser(oldUser)){
             return Result.fail(new HashMap<String,String>(1).put("msg","更新失败，原用户信息有误！"));
         }
-
+        //TODO 更新用户信息。
         return Result.ok();
     }
 
@@ -46,6 +69,7 @@ public class UserController {
         if (userInfoService.checkUser(user)){
             return Result.fail(new HashMap<String,String>(1).put("msg","登录失败，账号密码错误！"));
         }
+        //TODO 登录。
         return Result.ok();
     }
 
