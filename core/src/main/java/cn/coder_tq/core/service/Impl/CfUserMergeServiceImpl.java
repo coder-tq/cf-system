@@ -19,4 +19,9 @@ public class CfUserMergeServiceImpl extends ServiceImpl<CfUserMergeMapper, CfUse
 
         return cfUserMerge;
     }
+
+    @Override
+    public boolean verifyCfInfo(CfUserMerge cfUserMerge, String verifyCode) {
+        return false;
+    }
 }

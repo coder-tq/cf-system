@@ -38,4 +38,12 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return 验证结果。
      */
     boolean verifyUserInfo(UserInfo userInfo, String verifyCode, HttpServletRequest request);
+
+    /**
+     * 验证用户是否已经注册
+     * @param userInfo 用户信息
+     * @return 是否注册
+     */
+    boolean isRegistered(UserInfo userInfo);
+
 }

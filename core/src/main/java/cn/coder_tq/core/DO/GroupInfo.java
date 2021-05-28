@@ -15,7 +15,7 @@ import java.util.Date;
 @TableName("group_info")
 public class GroupInfo {
 
-  @TableId("id")
+  @TableId()
   private long id;
 
   @TableField("group_name")

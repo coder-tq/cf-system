@@ -7,10 +7,12 @@ import cn.coder_tq.core.service.CfInfoService;
 import cn.coder_tq.core.service.CfUserMergeService;
 import cn.coder_tq.core.service.UserInfoService;
 import cn.coder_tq.core.utils.Result;
-import com.baomidou.mybatisplus.extension.api.R;
+import cn.coder_tq.core.utils.ResultCodeEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ import java.util.HashMap;
  */
 @Api(tags = "用户操作")
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -31,10 +34,15 @@ public class UserController {
     @Autowired
     CfInfoService cfInfoService;
 
-
+    @ApiOperation(value = "发送验证码")
+    @PostMapping("/sendVerificationCode")
     public Result sendVerificationCode(UserInfo userInfo, HttpServletRequest request){
         //TODO 判断短时间内是否重复发送验证码，计划使用redis实现。
-        //TODO 检查用户是否已经注册。
+
+        //检查用户是否已经注册。
+        if (userInfoService.isRegistered(userInfo)) {
+            return Result.build(null,ResultCodeEnum.USER_ALREADY_REGISTERED);
+        }
         try {
             userInfoService.sendVerificationCode(userInfo,request);
         } catch (Exception e) {
@@ -67,7 +75,7 @@ public class UserController {
     }
 
     public Result login(UserInfo user){
-        if (userInfoService.checkUser(user)){
+        if (!userInfoService.checkUser(user)){
             return Result.fail(new HashMap<String,String>(1).put("msg","登录失败，账号密码错误！"));
         }
         //TODO 登录,将登录信息存至session。
