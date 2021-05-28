@@ -33,6 +33,14 @@ public class UserController {
         if (!userInfoService.checkUser(oldUser)){
             return Result.fail(new HashMap<String,String>().put("msg","更新失败，原用户信息有误！"));
         }
+
+        return Result.ok();
+    }
+
+    public Result login(UserInfo user){
+        if (!userInfoService.checkUser(user)){
+            return Result.fail(new HashMap<String,String>().put("msg","登录失败，账号密码错误！"));
+        }
         return Result.ok();
     }
 
