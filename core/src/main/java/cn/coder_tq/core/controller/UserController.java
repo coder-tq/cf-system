@@ -33,7 +33,7 @@ public class UserController {
     @ApiOperation(value = "更新用户")
     public Result updateUser(UserInfo oldUser,UserInfo newUser){
         if (!userInfoService.checkUser(oldUser)){
-            return Result.fail(new HashMap<String,String>().put("msg","更新失败，原用户信息有误！"));
+            return Result.fail(new HashMap<String,String>(1).put("msg","更新失败，原用户信息有误！"));
         }
 
         return Result.ok();
@@ -41,7 +41,7 @@ public class UserController {
 
     public Result login(UserInfo user){
         if (!userInfoService.checkUser(user)){
-            return Result.fail(new HashMap<String,String>().put("msg","登录失败，账号密码错误！"));
+            return Result.fail(new HashMap<String,String>(1).put("msg","登录失败，账号密码错误！"));
         }
         return Result.ok();
     }
