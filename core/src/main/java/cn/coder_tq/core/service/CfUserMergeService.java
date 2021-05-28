@@ -16,4 +16,13 @@ public interface CfUserMergeService extends IService<CfUserMerge> {
      * @return 合并之后的CfUserMerge对象
      */
     CfUserMerge mergeInfo(UserInfo user, CfInfo cfInfo);
+
+    /**
+     * 根据验证码验证cf信息,验证码与session绑定
+     * @param cfUserMerge cf与用户信息
+     * @param verifyCode 用户输入的验证码
+     * @return 验证码是否正确
+     */
+    boolean verifyCfInfo(CfUserMerge cfUserMerge,String verifyCode);
+
 }

@@ -1,7 +1,9 @@
 package cn.coder_tq.core.controller;
 
 import cn.coder_tq.core.DO.CfInfo;
+import cn.coder_tq.core.DO.CfUserMerge;
 import cn.coder_tq.core.DO.UserInfo;
+import cn.coder_tq.core.service.CfInfoService;
 import cn.coder_tq.core.service.CfUserMergeService;
 import cn.coder_tq.core.service.UserInfoService;
 import cn.coder_tq.core.utils.Result;
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author coder_tq
@@ -25,8 +26,10 @@ public class UserController {
     UserInfoService userInfoService;
     @Autowired
     CfUserMergeService cfUserMergeService;
+    @Autowired
+    CfInfoService cfInfoService;
 
-    public Result addUser(UserInfo user){
+    private Result addUser(UserInfo user){
         return Result.ok();
     }
 
@@ -40,14 +43,17 @@ public class UserController {
     }
 
     public Result login(UserInfo user){
-        if (!userInfoService.checkUser(user)){
+        if (userInfoService.checkUser(user)){
             return Result.fail(new HashMap<String,String>(1).put("msg","登录失败，账号密码错误！"));
         }
         return Result.ok();
     }
 
     public Result bindCf(UserInfo user, CfInfo cfInfo){
-        if (!cfUserMergeService.save(cfUserMergeService.mergeInfo(user,cfInfo))) {
+        CfUserMerge merge = cfUserMergeService.mergeInfo(user, cfInfo);
+        //TODO 验证操作
+        //cfUserMergeService.verifyCfInfo(merge);
+        if (!cfUserMergeService.save(merge)) {
             return Result.fail();
         }
         return Result.ok();

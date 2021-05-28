@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
     @Override
     public boolean checkUser(UserInfo user) {
-        return false;
+        return true;
     }
 }
