@@ -11,5 +11,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface UserInfoService extends IService<UserInfo> {
+    /**
+     *
+     * @param user 用户信息
+     * 只需要检查用户账号密码是否正确即可。
+     * @return 验证结果
+     */
     boolean checkUser(UserInfo user);
 }
