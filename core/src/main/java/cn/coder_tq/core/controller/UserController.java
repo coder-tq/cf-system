@@ -34,6 +34,7 @@ public class UserController {
 
     public Result sendVerificationCode(UserInfo userInfo, HttpServletRequest request){
         //TODO 判断短时间内是否重复发送验证码，计划使用redis实现。
+        //TODO 检查用户是否已经注册。
         try {
             userInfoService.sendVerificationCode(userInfo,request);
         } catch (Exception e) {
@@ -69,7 +70,7 @@ public class UserController {
         if (userInfoService.checkUser(user)){
             return Result.fail(new HashMap<String,String>(1).put("msg","登录失败，账号密码错误！"));
         }
-        //TODO 登录。
+        //TODO 登录,将登录信息存至session。
         return Result.ok();
     }
 
