@@ -14,10 +14,13 @@ import java.util.Date;
 @AllArgsConstructor
 @TableName("group_info")
 public class GroupInfo {
+
   @TableId("id")
   private long id;
+
   @TableField("group_name")
   private String groupName;
+
   @TableField("group_number")
   private long groupNumber;
 
