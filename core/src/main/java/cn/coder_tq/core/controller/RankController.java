@@ -1,5 +1,6 @@
 package cn.coder_tq.core.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,10 @@ public class RankController {
     @RequestMapping("/rank/group")
     public void showGroupRank(long groupNumber,@PathVariable long current,
                                               @PathVariable long limit){
-        // TODO
+
+
+
+
     }
 
 
