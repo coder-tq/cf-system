@@ -1,6 +1,8 @@
 package cn.coder_tq.core.controller;
 
+import cn.coder_tq.core.DO.CfInfo;
 import cn.coder_tq.core.DO.UserInfo;
+import cn.coder_tq.core.service.CfUserMergeService;
 import cn.coder_tq.core.service.UserInfoService;
 import cn.coder_tq.core.utils.Result;
 import io.swagger.annotations.Api;
@@ -21,8 +23,8 @@ public class UserController {
 
     @Autowired
     UserInfoService userInfoService;
-
-
+    @Autowired
+    CfUserMergeService cfUserMergeService;
 
     public Result addUser(UserInfo user){
         return Result.ok();
@@ -44,6 +46,11 @@ public class UserController {
         return Result.ok();
     }
 
-
+    public Result bindCf(UserInfo user, CfInfo cfInfo){
+        if (!cfUserMergeService.save(cfUserMergeService.mergeInfo(user,cfInfo))) {
+            return Result.fail();
+        }
+        return Result.ok();
+    }
 
 }
