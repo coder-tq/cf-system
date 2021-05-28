@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    #jdbc连接参数
+    url: jdbc:mysql://coder-tq.cn:3306/cf_system?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    username: root
+    password: root
+    #连接池参数
+    druid:
+      #初始化连接数
+      initial-size: 5
+      #最大连接数
+      max-active: 20

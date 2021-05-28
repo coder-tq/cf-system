@@ -1,23 +1,37 @@
 package cn.coder_tq.core.DO;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
 
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@TableName("user_info")
 public class UserInfo {
 
+  @TableField("id")
   private long id;
+
+  @TableField("qq")
   private long qq;
+
+  @TableField("password")
   private String password;
+
+  @TableField("create_time")
   private Date createTime;
+
+  @TableField("update_time")
   private Date updateTime;
+
+  @TableField("is_deleted")
   private long isDeleted;
+
+  @TableField("nickname")
   private String nickname;
 
 }
