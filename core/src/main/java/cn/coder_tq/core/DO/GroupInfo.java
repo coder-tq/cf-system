@@ -1,5 +1,6 @@
 package cn.coder_tq.core.DO;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,7 +16,7 @@ import java.util.Date;
 @TableName("group_info")
 public class GroupInfo {
 
-  @TableId()
+  @TableId(value = "id", type = IdType.AUTO)
   private long id;
 
   @TableField("group_name")

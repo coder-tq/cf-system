@@ -1,9 +1,7 @@
 package cn.coder_tq.core.DO;
 
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.*;
 
 import java.util.Date;
@@ -14,7 +12,7 @@ import java.util.Date;
 @TableName("user_info")
 public class UserInfo {
 
-  @TableField("id")
+  @TableId(value = "id", type = IdType.AUTO)
   private long id;
 
   @TableField("qq")

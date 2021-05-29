@@ -39,7 +39,7 @@ public class UserController {
     public Result sendVerificationCode(UserInfo userInfo, HttpServletRequest request){
         //TODO 判断短时间内是否重复发送验证码，计划使用redis实现。
 
-        //检查用户是否已经注册。
+        //检查用户是否已经注册
         if (userInfoService.isRegistered(userInfo)) {
             return Result.build(null,ResultCodeEnum.USER_ALREADY_REGISTERED);
         }
@@ -51,6 +51,8 @@ public class UserController {
         return Result.ok();
     }
 
+    @ApiOperation(value = "验证用户信息")
+    @PostMapping("/verifyUserInfo")
     public Result verifyUserInfo(UserInfo userInfo, String verifyCode, HttpServletRequest request){
         if (userInfoService.verifyUserInfo(userInfo,verifyCode,request)) {
             addUser(userInfo);
