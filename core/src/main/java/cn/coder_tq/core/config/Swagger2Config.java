@@ -23,7 +23,7 @@ public class Swagger2Config {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("userAPI")
-                .apiInfo(webApiInfo())
+                .apiInfo(userApiInfo())
                 .select()
                 //只显示api路径下的页面
                 .paths(Predicates.and(PathSelectors.regex("/user/.*")))
@@ -44,11 +44,11 @@ public class Swagger2Config {
 
     }
 
-    private ApiInfo webApiInfo(){
+    private ApiInfo userApiInfo(){
 
         return new ApiInfoBuilder()
-                .title("网站-API文档")
-                .description("本文档描述了网站微服务接口定义")
+                .title("用户-API文档")
+                .description("本文档描述了与用户相关微服务接口定义")
                 .version("1.0")
                 //.contact(new Contact("atguigu", "http://atguigu.com", "493211102@qq.com"))
                 .build();
