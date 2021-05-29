@@ -1,11 +1,9 @@
 package cn.coder_tq.core.service;
 
-import cn.coder_tq.core.DO.CfInfo;
-import cn.coder_tq.core.DO.CfUserMerge;
+import cn.coder_tq.core.DO.GroupInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface CfInfoService extends IService<CfInfo> {
-
+public interface GroupInfoService extends IService<GroupInfo> {
 }

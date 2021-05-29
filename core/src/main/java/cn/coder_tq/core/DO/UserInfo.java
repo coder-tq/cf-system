@@ -2,6 +2,7 @@ package cn.coder_tq.core.DO;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
@@ -28,7 +29,7 @@ public class UserInfo {
   @TableField("update_time")
   private Date updateTime;
 
-  @TableField("is_deleted")
+  @TableLogic("is_deleted")
   private long isDeleted;
 
   @TableField("nickname")

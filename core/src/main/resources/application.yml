@@ -10,3 +10,8 @@ spring:
       initial-size: 5
       #最大连接数
       max-active: 20
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: 1
+      logic-not-delete-value: 0
