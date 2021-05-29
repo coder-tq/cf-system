@@ -16,12 +16,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class CfInfoController {
     @Autowired
     CfInfoService cfInfoService;
-
-    private Result addCfInfo(CfInfo cfInfo){
-        if (!cfInfoService.save(cfInfo)) {
-            return Result.fail();
-        }
-        return Result.ok();
-    }
-
 }

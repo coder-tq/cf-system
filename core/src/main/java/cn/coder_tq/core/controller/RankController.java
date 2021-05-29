@@ -23,11 +23,10 @@ public class RankController {
     @RequestMapping("/rank/group")
     public void showGroupRank(long groupNumber,@PathVariable long current,
                                               @PathVariable long limit){
-
-
-
-
+    //TODO 查询信息功能。
     }
+
+
 
 
 
