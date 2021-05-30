@@ -36,24 +36,28 @@ public class UserController {
 
     @ApiOperation(value = "发送验证码")
     @PostMapping("/sendVerificationCode")
-    public Result sendVerificationCode(UserInfo userInfo, HttpServletRequest request){
+    public Result sendVerificationCode(UserInfo userInfo){
         //TODO 判断短时间内是否重复发送验证码，计划使用redis实现。
         /*
           检查用户是否已经注册。
          */
         if (userInfoService.isRegistered(userInfo)) {
-            return Result.build(null,ResultCodeEnum.USER_ALREADY_REGISTERED);
+            return Result.build("failed",ResultCodeEnum.USER_ALREADY_REGISTERED);
         }
         try {
-            userInfoService.sendVerificationCode(userInfo,request);
+            userInfoService.sendVerificationCode(userInfo);
         } catch (Exception e) {
+            e.printStackTrace();
             return Result.fail(new HashMap<String,String>(1).put("msg","验证码发送失败，请联系管理员处理"));
         }
         return Result.ok();
     }
 
+
+    @ApiOperation(value = "验证验证码")
+    @PostMapping("/verify")
     public Result verifyUserInfo(UserInfo userInfo, String verifyCode, HttpServletRequest request){
-        if (userInfoService.verifyUserInfo(userInfo,verifyCode,request)) {
+        if (userInfoService.verifyUserInfo(userInfo,verifyCode)) {
             addUser(userInfo);
             return Result.ok();
         }

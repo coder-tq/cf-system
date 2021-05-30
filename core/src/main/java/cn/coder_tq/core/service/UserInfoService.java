@@ -23,21 +23,19 @@ public interface UserInfoService extends IService<UserInfo> {
     /**
      * 将验证码发送至userInfo中的qq邮箱，并将验证码存入session中。
      * @param userInfo 要验证的用户信息。
-     * @param request 从request中获取session信息。
      * @return String 生成的验证码，如果出现异常则抛出异常。
      * @throws Exception 抛出发送邮件时的异常。
      */
-    String sendVerificationCode(UserInfo userInfo, HttpServletRequest request) throws Exception;
+    boolean sendVerificationCode(UserInfo userInfo) throws Exception;
 
 
     /**
      * 验证用户输入的验证码是否正确
      * @param userInfo 用户信息。
      * @param verifyCode 用户提供的验证码。
-     * @param request 从request中获取session信息。
      * @return 验证结果。
      */
-    boolean verifyUserInfo(UserInfo userInfo, String verifyCode, HttpServletRequest request);
+    boolean verifyUserInfo(UserInfo userInfo, String verifyCode);
 
     /**
      * 验证用户是否已经注册

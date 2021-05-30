@@ -10,8 +10,37 @@ spring:
       initial-size: 5
       #最大连接数
       max-active: 20
+  mail:
+    default-encoding: UTF-8
+    host: smtp.qiye.aliyun.com
+    username: admin@coder-tq.cn
+    password: Zzzz1234
+    port: 25
+    protocol: smtp
+    email-from: admin@coder-tq.cn
+  redis:
+    host: coder-tq.cn
+    password:
 mybatis-plus:
   global-config:
     db-config:
       logic-delete-field: 1
       logic-not-delete-value: 0
+
+
+## Redis数据库索引（默认为0）
+#  spring.redis.database=0
+#  # Redis服务器地址
+#  spring.redis.host=localhost
+#  # Redis服务器连接端口
+#  spring.redis.port=6379
+#  # Redis服务器连接密码（默认为空）
+#  spring.redis.password=
+#  # 连接池最大连接数（使用负值表示没有限制） 默认 8
+#  spring.redis.lettuce.pool.max-active=8
+#  # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+#  spring.redis.lettuce.pool.max-wait=-1
+#  # 连接池中的最大空闲连接 默认 8
+#  spring.redis.lettuce.pool.max-idle=8
+#  # 连接池中的最小空闲连接 默认 0
+#  spring.redis.lettuce.pool.min-idle=0
