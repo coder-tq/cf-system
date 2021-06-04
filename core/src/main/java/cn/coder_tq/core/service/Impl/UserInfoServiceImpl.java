@@ -24,8 +24,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Autowired
     private EmailUtil emailUtil;
 
-    private Random random = new Random();
-
     @Autowired
     private StringRedisTemplate redisTemplate;
 
@@ -45,23 +43,22 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         }
         String text = "您的验证码为: "+verificationCode+",验证码有效期为1小时。\n如果您没有进行相关操作，请忽略该邮件";
 
-        redisTemplate.opsForValue().set(String.valueOf(qq),verificationCode,1, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set("EmailVerificationCode"+String.valueOf(qq),verificationCode,1, TimeUnit.HOURS);
         emailUtil.sendEmail(email,subject,text);
         return true;
     }
 
     @Override
     public boolean verifyUserInfo(UserInfo userInfo, String verifyCode) {
-
         if (verifyCode == null|| userInfo == null) {
             return false;
         }
-        String s = redisTemplate.opsForValue().get(String.valueOf(userInfo.getQq()));
+        String s = redisTemplate.opsForValue().get("EmailVerificationCode"+String.valueOf(userInfo.getQq()));
         if (s == null) {
             return false;
         }
         if (verifyCode.equals(s.toString())) {
-            redisTemplate.delete(String.valueOf(userInfo.getQq()));
+            redisTemplate.delete("EmailVerificationCode"+String.valueOf(userInfo.getQq()));
             return true;
         }
         return false;
@@ -79,5 +76,13 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean addUser(UserInfo userInfo) {
+
+        userInfo.setPassword(userInfo.getPassword());
+        
+        return this.save(userInfo);
     }
 }

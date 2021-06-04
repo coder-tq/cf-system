@@ -2,6 +2,7 @@ package cn.coder_tq.core.controller;
 
 import cn.coder_tq.core.DO.CfInfo;
 import cn.coder_tq.core.DO.CfUserMerge;
+import cn.coder_tq.core.DO.GroupInfo;
 import cn.coder_tq.core.DO.UserInfo;
 import cn.coder_tq.core.service.CfInfoService;
 import cn.coder_tq.core.service.CfUserMergeService;
@@ -37,7 +38,6 @@ public class UserController {
     @ApiOperation(value = "发送验证码")
     @PostMapping("/sendVerificationCode")
     public Result sendVerificationCode(UserInfo userInfo){
-        //TODO 判断短时间内是否重复发送验证码，计划使用redis实现。
         /*
           检查用户是否已经注册。
          */
@@ -56,18 +56,15 @@ public class UserController {
 
     @ApiOperation(value = "验证验证码")
     @PostMapping("/verify")
-    public Result verifyUserInfo(UserInfo userInfo, String verifyCode, HttpServletRequest request){
+    public Result verifyUserInfo(UserInfo userInfo, String verifyCode){
         if (userInfoService.verifyUserInfo(userInfo,verifyCode)) {
-            addUser(userInfo);
+            if (!userInfoService.addUser(userInfo)) {
+                return Result.fail();
+            }
             return Result.ok();
         }
         //TODO 返回信息。
         return Result.fail();
-    }
-
-    private Result addUser(UserInfo user){
-        //TODO 添加用户
-        return Result.ok();
     }
 
     @ApiOperation(value = "更新用户")
@@ -99,6 +96,13 @@ public class UserController {
             return Result.fail();
         }
         return Result.ok();
+    }
+
+    public Result bindGroup(UserInfo user, GroupInfo group){
+
+
+
+        return Result.fail();
     }
 
 }

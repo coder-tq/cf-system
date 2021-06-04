@@ -44,4 +44,5 @@ public interface UserInfoService extends IService<UserInfo> {
      */
     boolean isRegistered(UserInfo userInfo);
 
+    boolean addUser(UserInfo userInfo);
 }

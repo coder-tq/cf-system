@@ -1,7 +1,6 @@
 package cn.coder_tq.core.utils;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -21,14 +20,14 @@ public class EmailUtil {
     private String emailFrom;
 
     public boolean sendEmail(String to, String subject, String text){
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        SimpleMailMessage mail = new SimpleMailMessage();
         // 设置收件人，寄件人
-        simpleMailMessage.setTo(to);
-        simpleMailMessage.setFrom(emailFrom);
-        simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(text);
+        mail.setTo(to);
+        mail.setFrom(emailFrom);
+        mail.setSubject(subject);
+        mail.setText(text);
         // 发送邮件
-        mailSender.send(simpleMailMessage);
+        mailSender.send(mail);
         return true;
     }
 }
